@@ -3,6 +3,7 @@
 import argparse
 import os
 import os.path
+import shlex
 import sys
 
 import yaml
@@ -78,7 +79,7 @@ def main() -> None:
     for key, value in cloud_data.items():
         if key == 'auth':
             for key, value in cloud_data['auth'].items():
-                print(f"export OS_{key.upper()}={value}")
+                print(f"export OS_{key.upper()}={shlex.quote(str(value))}")
             continue
 
         if key == 'regions':
