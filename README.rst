@@ -53,3 +53,4 @@ Example
     export OS_IDENTITY_API_VERSION=3
     export OS_REGION_NAME=RegionOne
     export OS_VOLUME_API_VERSION=3
+    $ eval $(clouds2env)
