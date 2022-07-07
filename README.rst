@@ -28,14 +28,19 @@ Usage
 
 .. code-block:: shell
 
-    $ python clouds2env --help
-    usage: clouds2env [-h] [cloud]
+    $ clouds2env --help
+    usage: clouds2env [-h] [--set | --unset] [cloud]
+
+    A tool to convert from an OpenStack 'clouds.yaml' file to 'OS_'-prefixed
+    environment variables suitable for use with legacy tooling like novaclient.
 
     positional arguments:
-      cloud       the cloud to use (defaults to $OS_CLOUD)
+      cloud       the cloud to use
 
     options:
       -h, --help  show this help message and exit
+      --set       set environment variables (default)
+      --unset     unset environment variables
 
 Example
 -------
@@ -43,7 +48,7 @@ Example
 .. code-block:: shell
 
     $ export OS_CLOUD=devstack-admin
-    $ clouds2yaml
+    $ clouds2env
     export OS_AUTH_URL=http://10.0.108.84/identity
     export OS_PASSWORD=password
     export OS_PROJECT_DOMAIN_ID=default
