@@ -49,7 +49,13 @@ def _load_clouds_yaml() -> str:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description=(
+            "A tool to convert from an OpenStack 'clouds.yaml' file to "
+            "'OS_'-prefixed environment variables suitable for use with "
+            "legacy tooling like novaclient."
+        ),
+    )
     parser.add_argument(
         'cloud',
         nargs='?',
