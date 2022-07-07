@@ -55,6 +55,21 @@ def main() -> None:
         nargs='?',
         help='the cloud to use',
     )
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
+        '--set',
+        action='store_true',
+        dest='set',
+        default=True,
+        help='set environment variables (default)',
+    )
+    group.add_argument(
+        '--unset',
+        action='store_false',
+        dest='set',
+        default=True,
+        help='unset environment variables',
+    )
     args = parser.parse_args()
 
     cloud = args.cloud or os.getenv('OS_CLOUD')
@@ -79,13 +94,19 @@ def main() -> None:
     for key, value in cloud_data.items():
         if key == 'auth':
             for key, value in cloud_data['auth'].items():
-                print(f"export OS_{key.upper()}={shlex.quote(str(value))}")
+                if args.set:
+                    print(f'export OS_{key.upper()}={shlex.quote(str(value))}')
+                else:
+                    print(f'unset OS_{key.upper()}')
             continue
 
         if key == 'regions':
             continue
 
-        print(f"export OS_{key.upper()}={value}")
+        if args.set:
+            print(f'export OS_{key.upper()}={value}')
+        else:
+            print(f'unset OS_{key.upper()}')
 
 
 if __name__ == '__main__':
