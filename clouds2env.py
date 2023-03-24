@@ -109,8 +109,12 @@ def main() -> None:
         if key == 'regions':
             continue
 
+        # handle list-style values
+        if key in ('auth_methods',):
+            value = ','.join(value)
+
         if args.set:
-            print(f'export OS_{key.upper()}={value}')
+            print(f'export OS_{key.upper()}={shlex.quote(str(value))}')
         else:
             print(f'unset OS_{key.upper()}')
 
